@@ -1,7 +1,6 @@
 require 'byebug'
 module Steppable
   def moves
-    debugger
     move_diffs.map do |dir|
       prev_x, prev_y = pos
       [prev_x + dir[0], prev_y + dir[1]]

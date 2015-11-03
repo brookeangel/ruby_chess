@@ -20,6 +20,8 @@ class Pawn < Piece
 
     moves = [one_step]
     moves << [pos[0] + y_diff * 2, pos[1]] if at_start_row?
+
+    moves
   end
 
   def side_attacks

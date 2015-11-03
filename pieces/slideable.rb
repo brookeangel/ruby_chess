@@ -19,7 +19,7 @@ module Slideable
       if board[current_x, current_y].empty?
         moves_in_direction << [current_x, current_y]
         current_x += x_diff
-        current_y += y_dif
+        current_y += y_diff
       else
         moves_in_direction << [current_x, current_y] if board[current_x, current_y] != self.color
         break

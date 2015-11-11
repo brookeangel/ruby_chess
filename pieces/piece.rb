@@ -1,3 +1,5 @@
+require 'byebug'
+
 class Piece
   attr_accessor :pos
   attr_reader :color, :board
@@ -18,8 +20,7 @@ class Piece
 
   def move_into_check?(to_pos)
     new_board = board.dup
-
     new_board.move!(pos, to_pos)
-    board.in_check?(color)
+    new_board.in_check?(color)
   end
 end

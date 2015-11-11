@@ -1,17 +1,17 @@
 require 'colorize'
+require_relative 'cursor'
 
 class Display
-  attr_reader :board, :game
-  attr_accessor :active_square
+  attr_reader :board, :game, :pos
+  attr_accessor :selected, :messages
+
+  include Cursorable
 
   def initialize(board, game)
     @board = board
     @game = game
-    @active_square = [0, 0]
-  end
-
-  def cursor=(cursor)
-    @cursor = cursor
+    @pos = [0, 0]
+    @selected = nil
   end
 
   def render
@@ -24,15 +24,18 @@ class Display
       end
       puts
     end
+    puts "#{board.messages.join(", ")}"
 
     nil
   end
 
   def bg_color(row_idx, col_idx)
-    if [row_idx, col_idx] == active_square
-      {background: :light_magenta}
-    elsif (row_idx + col_idx) % 2 == 0
+    if [row_idx, col_idx] == pos
+      {background: :light_black}
+    elsif [row_idx, col_idx] == selected
       {background: :light_blue}
+    elsif (row_idx + col_idx) % 2 == 0
+      {background: :light_white}
     else
       {background: :light_yellow}
     end

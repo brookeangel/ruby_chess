@@ -10,7 +10,6 @@ class Chess
   def initialize(player1, player2)
     @board = Board.new
     @display = Display.new(board, self)
-    @cursor = Cursor.new(display)
     @players = [player1, player2]
 
     setup_players
@@ -19,7 +18,7 @@ class Chess
   def play
     welcome_message
 
-    until won?
+    until over?
       display.render
       move = players.first.get_move
       players.rotate! if make_move(move)
@@ -32,15 +31,16 @@ class Chess
 
   private
 
-  attr_reader :board, :display, :cursor
+  attr_reader :board, :display
 
   def make_move(move)
     from_pos, to_pos = move[0], move[1]
     board.move(from_pos, to_pos)
   end
 
-  def won?
-    false
+  def over?
+    board.no_moves?(players.first.color) ||
+      [:black, :white].any? { |color| board.checkmate?(color) }
   end
 
   def welcome_message
@@ -53,7 +53,7 @@ class Chess
   def setup_players
     colors = [:white, :black]
     players.each do |player|
-      player.cursor = cursor
+      player.display = display
       player.board = board
       player.color = colors.shift
     end

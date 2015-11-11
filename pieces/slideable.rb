@@ -21,7 +21,9 @@ module Slideable
         current_x += x_diff
         current_y += y_diff
       else
-        moves_in_direction << [current_x, current_y] if board[current_x, current_y] != self.color
+        if board[current_x, current_y].color != self.color
+          moves_in_direction << [current_x, current_y]
+        end
         break
       end
     end

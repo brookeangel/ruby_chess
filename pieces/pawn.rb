@@ -14,12 +14,15 @@ class Pawn < Piece
   end
 
   def forward_moves
+    moves = []
     y_diff = color == :white ? -1 : 1
     one_step = [pos[0] + y_diff, pos[1]]
     return [] unless board.on_board?(*one_step)
 
-    moves = [one_step]
-    moves << [pos[0] + y_diff * 2, pos[1]] if at_start_row?
+    moves << one_step if board[*one_step].empty?
+
+    two_step = [pos[0] + y_diff * 2, pos[1]]
+    moves << two_step if at_start_row? && board[*two_step].empty?
 
     moves
   end

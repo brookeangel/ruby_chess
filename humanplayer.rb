@@ -8,26 +8,29 @@ class Player
 end
 
 class HumanPlayer < Player
-  attr_accessor :cursor
+  attr_accessor :display
 
   def get_move
     from_pos = get_from_position
+    display.selected = from_pos
+
     to_pos = get_to_position
 
+    display.selected = nil
     [from_pos, to_pos]
   end
 
   def get_from_position
-    pos = cursor.get_move
+    pos = display.get_move
 
     until board[*pos].color == self.color
-      pos = cursor.get_move
+      pos = display.get_move
     end
 
     pos
   end
 
   def get_to_position
-    cursor.get_move
+    display.get_move
   end
 end

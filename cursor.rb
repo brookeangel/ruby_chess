@@ -1,14 +1,6 @@
 require 'io/console'
 
-class Cursor
-  attr_accessor :pos
-  attr_reader :display
-
-  def initialize(display)
-    @pos = [0, 0]
-    @display = display
-    display.cursor = self
-  end
+module Cursorable
 
   def get_move
     input = nil
@@ -18,17 +10,14 @@ class Cursor
 
       if arrow_key?(input)
         update_cursor(input)
-        display.active_square = pos
       end
 
       system('clear')
-      display.render
+      self.render
     end
 
     pos.dup
   end
-
-  private
 
   def read_char
     STDIN.echo = false
@@ -80,19 +69,17 @@ class Cursor
   end
 
   def update_cursor(direction)
-    board = display.board.grid
+    grid = board.grid
 
     case direction
     when :down
-      pos[0] = (pos[0] + 1) % board.size
+      pos[0] = (pos[0] + 1) % grid.size
     when :up
-      pos[0] = (pos[0] - 1) % board.size
+      pos[0] = (pos[0] - 1) % grid.size
     when :right
-      pos[1] = (pos[1] + 1) % board.size
+      pos[1] = (pos[1] + 1) % grid.size
     when :left
-      pos[1] = (pos[1] - 1) % board.size
+      pos[1] = (pos[1] - 1) % grid.size
     end
   end
-
-
 end

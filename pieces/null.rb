@@ -6,7 +6,11 @@ class NullPiece
   def color
     nil
   end
-  
+
+  def moved?
+    true
+  end
+
   def valid_moves
     []
   end

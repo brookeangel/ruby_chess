@@ -24,7 +24,6 @@ class King < Piece
   end
 
   def moves
-    debugger
     Steppable.instance_method(:moves).bind(self).call + castle_moves
   end
 end

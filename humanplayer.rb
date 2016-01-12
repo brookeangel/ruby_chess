@@ -33,4 +33,8 @@ class HumanPlayer < Player
   def get_to_position
     display.get_move
   end
+
+  def get_pawn_upgrade
+
+  end
 end

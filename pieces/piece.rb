@@ -4,8 +4,8 @@ class Piece
   attr_accessor :pos
   attr_reader :color, :board
 
-  def initialize(pos, board, color = nil)
-    @pos, @board, @color, @moved = pos, board, color, false
+  def initialize(pos, board, color = nil, moved = false)
+    @pos, @board, @color, @moved = pos, board, color, moved
   end
 
   def empty?

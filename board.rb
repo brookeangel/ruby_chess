@@ -1,11 +1,14 @@
 require 'byebug'
 require_relative 'modules/board_setup.rb'
 require_relative 'modules/board_castle.rb'
+require_relative 'modules/pawn_upgrade.rb'
 
 class Board
   attr_reader :grid, :sentinel, :messages
+
   include BoardSetupable
   include BoardCastleable
+  include PawnUpgradeable
 
   def initialize(fill_board = true)
     @sentinel = NullPiece.instance
@@ -16,13 +19,12 @@ class Board
     setup_pieces if fill_board
   end
 
-
   def move(start, fin)
     if valid_move?(start, fin)
       @messages = []
       move!(start, fin)
     else
-      @messages << "Invalid move."
+      messages << "Invalid move."
       false
     end
   end
@@ -36,6 +38,9 @@ class Board
     self[*start] = sentinel
   end
 
+  def clear_messages
+    @messages = []
+  end
 
   def [](x, y)
     grid[x][y]

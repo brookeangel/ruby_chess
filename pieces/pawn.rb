@@ -10,7 +10,7 @@ class Pawn < Piece
   private
 
   def at_start_row?
-    moved?
+    !moved?
   end
 
   def forward_moves

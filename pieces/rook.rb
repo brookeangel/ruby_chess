@@ -1,3 +1,5 @@
+require 'byebug'
+
 class Rook < Piece
   MOVE_DIFFS = [
     [1, 0],

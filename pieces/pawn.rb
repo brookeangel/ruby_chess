@@ -10,7 +10,7 @@ class Pawn < Piece
   private
 
   def at_start_row?
-    pos[0] == ((color == :white) ? 6 : 1)
+    moved?
   end
 
   def forward_moves

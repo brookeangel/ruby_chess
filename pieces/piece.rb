@@ -5,11 +5,15 @@ class Piece
   attr_reader :color, :board
 
   def initialize(pos, board, color = nil)
-    @pos, @board, @color = pos, board, color
+    @pos, @board, @color, @moved = pos, board, color, false
   end
 
   def empty?
     false
+  end
+
+  def moved?
+    @moved
   end
 
   def valid_moves

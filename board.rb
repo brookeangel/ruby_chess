@@ -23,11 +23,15 @@ class Board
     end
   end
 
+
   def move!(start, fin)
+    castle(fin) if castle?(start, fin)
+
     self[*fin] = self[*start]
     self[*fin].pos = fin
     self[*start] = sentinel
   end
+
 
   def [](x, y)
     grid[x][y]
@@ -100,6 +104,20 @@ class Board
     grid.flatten.reject { |piece| piece.empty? }
   end
 
+  def castle(fin)
+    start_row = fin[0]
+    start_col = fin[1] < 3 ? 0 : 7
+
+    end_row = fin[0]
+    end_col = fin[1] < 3 ? 2 : 5
+
+    move!([start_row, start_col], [end_row, end_col])
+  end
+
+  def castle?(start, fin)
+    self[*start].class == King && !(fin[1] - start[1]).between?(-1, 1)
+  end
+
   def find_king(color)
     pieces.each do |piece|
       return piece if piece.is_a?(King) && piece.color == color
@@ -126,6 +144,17 @@ class Board
     end
   end
 
+  def fill_back_row(color)
+    back_pieces = [
+      Rook, nil, nil, nil, King, nil, nil, Rook
+    ]
+
+    row_idx = (color == :white) ? 7 : 0
+    back_pieces.each_with_index do |piece_class, col_idx|
+      self[row_idx, col_idx] = piece_class.new([row_idx, col_idx], self, color) if piece_class
+    end
+  end
+
   def fill_pawn_row(color)
     row_idx = (color == :white) ? 6 : 1
     8.times do |col_idx|
@@ -137,7 +166,6 @@ class Board
   def valid_move?(start, finish)
     self[*start].valid_moves.include?(finish)
   end
-
 end
 
 class MoveError < StandardError

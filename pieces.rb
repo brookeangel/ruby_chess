@@ -1,6 +1,7 @@
 require_relative 'pieces/piece'
 require_relative 'pieces/steppable'
 require_relative 'pieces/slideable'
+require_relative 'pieces/castleable'
 require_relative 'pieces/null'
 require_relative 'pieces/bishop'
 require_relative 'pieces/king'

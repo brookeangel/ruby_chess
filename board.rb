@@ -24,7 +24,7 @@ class Board
       @messages = []
       move!(start, fin)
     else
-      messages << "Invalid move."
+      @messages = ["Invalid move."]
       false
     end
   end
